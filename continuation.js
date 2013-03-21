@@ -49,6 +49,10 @@ exports.compile = function (code, options) {
   //console.error(util.inspect(ast, false, null, true)); //debug
   ast.transform();
   //console.error(util.inspect(ast, false, null, true)); //debug
+  traverse(ast, function (node) {
+    return node.fixup ? node.fixup() : node;
+  });
+  //console.error(util.inspect(ast, false, null, true)); //debug
 
   //Generate code
   var escodegen = require('escodegen');
